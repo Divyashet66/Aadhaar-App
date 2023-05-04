@@ -3,16 +3,22 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const router = require("./routes/router");
 const app = express();
+// const bodyParser = require('body-parser');
 const port = 5000;
 
-dotenv.config();
+app.use(express.json())
+// app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/api",router);
+dotenv.config();
 
 mongoose
   .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
 
-app.get("/", (req, res) => res.send("Hello World!"));
+app.use("/api",router);
+
+
+
+// app.get("/", (req, res) => res.send("Hello World!"));
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

@@ -10,6 +10,6 @@ const aadhaarSchema = new mongoose.Schema({
   aadhaarNumber: String,
 });
 
-const Aadhaar = mongoose.model("Aadhar", aadhaarSchema);
+const Aadhaar = mongoose.model("Aadhaar", aadhaarSchema);
 
 module.exports = { Aadhaar };
