@@ -8,13 +8,13 @@ const AadhaarEnrollmentForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [homeAddress, setHomeAddress] = useState("");
-  const [aadhaarNumber, setAadhaarNumber] = useState("");
+  // const [aadhaarNumber, setAadhaarNumber] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/aadhaar/create", {
+      console.log({
         firstName,
         lastName,
         phoneNumber,
@@ -22,8 +22,16 @@ const AadhaarEnrollmentForm = () => {
         password,
         homeAddress,
       });
-
-      setAadhaarNumber(response.data.aadhaarNumber);
+      const response = await axios.post("http://localhost:5000/aadhaar/create", {
+        firstName,
+        lastName,
+        phoneNumber,
+        email,
+        password,
+        homeAddress,
+      });
+      console.log("response", response.data);
+      // setAadhaarNumber(response.data.aadhaarNumber);
     } catch (error) {
       console.log(error);
     }
@@ -74,7 +82,7 @@ const AadhaarEnrollmentForm = () => {
             Submit
           </button>
         </form>
-        {aadhaarNumber && <p style={{ marginLeft: "20px" }}>Your Aadhaar Number is {aadhaarNumber}</p>}
+        {/* {aadhaarNumber && <p style={{ marginLeft: "20px" }}>Your Aadhaar Number is {aadhaarNumber}</p>} */}
       </div>
     </div>
   );
