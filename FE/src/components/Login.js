@@ -1,26 +1,20 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Header from "../components/Header";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  /* justify-content: center; */
-  /* height: 100vh; */
-  /* background: linear-gradient(to bottom, navy, white); */
-  /* background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,70,121,1) 35%, rgba(0,212,255,1) 100%); */
-  
-  /* background-color: #0cafff; */
 `;
 
 const Form = styled.form`
   width: 500px;
   margin: 0 auto;
   padding: 40px;
-  background: radial-gradient(circle, rgba(34,193,195,1) 0%, rgba(45,253,72,1) 100%);
+  background: radial-gradient(circle, rgba(34, 193, 195, 1) 0%, rgba(45, 253, 72, 1) 100%);
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   background-color: #f7f7f7;
@@ -64,13 +58,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     // const { name, value } = e.target;
     // setUserData({ ...userData, [name]: value });
     console.log(userData);
     try {
       const response = await axios.post("http://localhost:5000/aadhaar/login", userData);
-      console.log(response.data);
-      if (response.data) {
+      console.log(response.status);
+      if (response.status === 200) {
         // setTrigger(true);
         navigate("/aadhaar-card");
       }
@@ -86,16 +81,17 @@ const Login = () => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <Wrapper>
         <Form onSubmit={handleSubmit}>
-          <div>
-            <Label for="email">Email:</Label>
-            <Input type="email" name="email" value={userData.email} onChange={handleChange} />
-            <Label for="password">Password:</Label>
-            <Input type="password" name="password" value={userData.password} onChange={handleChange} />
-            <Button type="submit">Login</Button>
-          </div>
+          <Label for="email">Email:</Label>
+          <Input type="email" name="email" value={userData.email} onChange={handleChange} />
+          <Label for="password">Password:</Label>
+          <Input type="password" name="password" value={userData.password} onChange={handleChange} />
+          <Button type="submit">Login</Button>
+          <p>
+            Not Registered?&nbsp; <Link to="/register">Sign Up</Link>
+          </p>
         </Form>
       </Wrapper>
     </div>
